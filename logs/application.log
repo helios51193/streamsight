@@ -1,0 +1,408 @@
+[2026-01-22 22:51:21,815] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-01-22 22:51:23,546] INFO django.server "GET / HTTP/1.1" 302 0
+[2026-01-22 22:51:23,677] INFO django.server "GET /admin/login HTTP/1.1" 200 2284
+[2026-01-22 22:51:23,960] WARNING django.request Not Found: /favicon.ico
+[2026-01-22 22:51:23,961] WARNING django.server "GET /favicon.ico HTTP/1.1" 404 2514
+[2026-01-22 23:00:13,028] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-01-22 23:00:15,360] INFO django.server "GET / HTTP/1.1" 302 0
+[2026-01-22 23:00:15,413] INFO django.server "GET /admin/login HTTP/1.1" 200 2284
+[2026-01-22 23:00:42,973] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-22 23:00:42,984] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-22 23:00:43,263] WARNING django.server "GET /static/js/bootstrap.bundle.min.js.map HTTP/1.1" 404 1904
+[2026-01-22 23:00:43,269] WARNING django.server "GET /static/css/bootstrap.min.css.map HTTP/1.1" 404 1889
+[2026-01-22 23:00:47,860] INFO django.server "GET /admin/login HTTP/1.1" 200 2284
+[2026-01-22 23:00:47,880] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-22 23:00:47,881] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-22 23:00:47,894] WARNING django.server "GET /static/js/htmx.min.js HTTP/1.1" 404 1856
+[2026-01-22 23:00:47,894] WARNING django.server "GET /static/css/bootstrap.min.css HTTP/1.1" 404 1877
+[2026-01-22 23:00:47,899] WARNING django.server "GET /static/js/bootstrap.bundle.min.js HTTP/1.1" 404 1892
+[2026-01-22 23:00:47,900] WARNING django.server "GET /static/js/alpine.min.js HTTP/1.1" 404 1862
+[2026-01-22 23:00:51,467] INFO django.server "GET /admin/login HTTP/1.1" 200 2284
+[2026-01-22 23:00:51,487] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-22 23:00:51,490] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-22 23:00:51,500] WARNING django.server "GET /static/js/htmx.min.js HTTP/1.1" 404 1856
+[2026-01-22 23:00:51,500] WARNING django.server "GET /static/css/bootstrap.min.css HTTP/1.1" 404 1877
+[2026-01-22 23:00:51,504] WARNING django.server "GET /static/js/bootstrap.bundle.min.js HTTP/1.1" 404 1892
+[2026-01-22 23:00:51,508] WARNING django.server "GET /static/js/alpine.min.js HTTP/1.1" 404 1862
+[2026-01-22 23:04:01,392] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-01-22 23:04:03,057] INFO django.server "GET / HTTP/1.1" 302 0
+[2026-01-22 23:04:03,114] INFO django.server "GET /admin/login HTTP/1.1" 200 2284
+[2026-01-22 23:04:03,164] WARNING django.server "GET /static/css/bootstrap.min.css HTTP/1.1" 404 1877
+[2026-01-22 23:04:03,172] WARNING django.server "GET /static/js/htmx.min.js HTTP/1.1" 404 1856
+[2026-01-22 23:04:03,176] WARNING django.server "GET /static/js/bootstrap.bundle.min.js HTTP/1.1" 404 1892
+[2026-01-22 23:04:03,176] WARNING django.server "GET /static/js/alpine.min.js HTTP/1.1" 404 1862
+[2026-01-23 19:36:09,331] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-01-23 19:36:12,993] INFO django.server "GET / HTTP/1.1" 302 0
+[2026-01-23 19:36:13,304] ERROR django.request Internal Server Error: /admin/login
+Traceback (most recent call last):
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 205, in _get_response
+    self.check_response(response, callback)
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 333, in check_response
+    raise ValueError(
+ValueError: The view auth_manager.utilities.authenticated_redirector.wrapper didn't return an HttpResponse object. It returned None instead.
+[2026-01-23 19:36:13,306] ERROR django.server "GET /admin/login HTTP/1.1" 500 77087
+[2026-01-23 19:36:13,595] WARNING django.request Not Found: /favicon.ico
+[2026-01-23 19:36:13,596] WARNING django.server "GET /favicon.ico HTTP/1.1" 404 2514
+[2026-01-23 19:37:00,512] INFO django.server "GET /admin/login HTTP/1.1" 200 2021
+[2026-01-23 19:37:00,595] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 19:37:20,237] ERROR django.request Internal Server Error: /admin/login
+Traceback (most recent call last):
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 205, in _get_response
+    self.check_response(response, callback)
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 333, in check_response
+    raise ValueError(
+ValueError: The view auth_manager.utilities.authenticated_redirector.wrapper didn't return an HttpResponse object. It returned None instead.
+[2026-01-23 19:37:20,239] ERROR django.server "GET /admin/login HTTP/1.1" 500 77224
+[2026-01-23 19:37:48,226] ERROR django.request Internal Server Error: /admin/login
+Traceback (most recent call last):
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 205, in _get_response
+    self.check_response(response, callback)
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 333, in check_response
+    raise ValueError(
+ValueError: The view auth_manager.utilities.authenticated_redirector.wrapper didn't return an HttpResponse object. It returned None instead.
+[2026-01-23 19:37:48,228] ERROR django.server "GET /admin/login HTTP/1.1" 500 77224
+[2026-01-23 19:39:11,163] ERROR django.request Internal Server Error: /admin/login
+Traceback (most recent call last):
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 205, in _get_response
+    self.check_response(response, callback)
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 333, in check_response
+    raise ValueError(
+ValueError: The view auth_manager.utilities.authenticated_redirector.wrapper didn't return an HttpResponse object. It returned None instead.
+[2026-01-23 19:39:11,164] ERROR django.server "GET /admin/login HTTP/1.1" 500 77224
+[2026-01-23 19:40:00,810] ERROR django.request Internal Server Error: /admin/login
+Traceback (most recent call last):
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 205, in _get_response
+    self.check_response(response, callback)
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 333, in check_response
+    raise ValueError(
+ValueError: The view auth_manager.utilities.authenticated_redirector.wrapper didn't return an HttpResponse object. It returned None instead.
+[2026-01-23 19:40:00,812] ERROR django.server "GET /admin/login HTTP/1.1" 500 77224
+[2026-01-23 19:40:02,014] ERROR django.request Internal Server Error: /admin/login
+Traceback (most recent call last):
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 205, in _get_response
+    self.check_response(response, callback)
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 333, in check_response
+    raise ValueError(
+ValueError: The view auth_manager.utilities.authenticated_redirector.wrapper didn't return an HttpResponse object. It returned None instead.
+[2026-01-23 19:40:02,015] ERROR django.server "GET /admin/login HTTP/1.1" 500 77224
+[2026-01-23 19:41:49,076] INFO django.utils.autoreload F:\Projects\django\analytics_dashboard\auth_manager\views.py changed, reloading.
+[2026-01-23 19:41:49,606] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-01-23 19:41:54,145] INFO django.utils.autoreload F:\Projects\django\analytics_dashboard\auth_manager\utilities\authenticated_redirector.py changed, reloading.
+[2026-01-23 19:41:54,686] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-01-23 19:42:17,728] ERROR django.request Internal Server Error: /admin/login
+Traceback (most recent call last):
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 205, in _get_response
+    self.check_response(response, callback)
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 333, in check_response
+    raise ValueError(
+ValueError: The view auth_manager.views.user_login didn't return an HttpResponse object. It returned None instead.
+[2026-01-23 19:42:17,730] ERROR django.server "GET /admin/login HTTP/1.1" 500 76888
+[2026-01-23 19:42:29,155] INFO django.utils.autoreload F:\Projects\django\analytics_dashboard\auth_manager\views.py changed, reloading.
+[2026-01-23 19:42:29,664] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-01-23 19:42:38,884] ERROR django.request Internal Server Error: /admin/login
+Traceback (most recent call last):
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 205, in _get_response
+    self.check_response(response, callback)
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 333, in check_response
+    raise ValueError(
+ValueError: The view auth_manager.views.user_login didn't return an HttpResponse object. It returned None instead.
+[2026-01-23 19:42:38,886] ERROR django.server "GET /admin/login HTTP/1.1" 500 76888
+[2026-01-23 19:42:45,624] INFO django.utils.autoreload F:\Projects\django\analytics_dashboard\auth_manager\views.py changed, reloading.
+[2026-01-23 19:42:46,154] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-01-23 19:42:46,949] ERROR django.request Internal Server Error: /admin/login
+Traceback (most recent call last):
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 205, in _get_response
+    self.check_response(response, callback)
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 333, in check_response
+    raise ValueError(
+ValueError: The view auth_manager.views.user_login didn't return an HttpResponse object. It returned None instead.
+[2026-01-23 19:42:46,951] ERROR django.server "GET /admin/login HTTP/1.1" 500 76888
+[2026-01-23 19:42:57,005] ERROR django.request Internal Server Error: /admin/login
+Traceback (most recent call last):
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 205, in _get_response
+    self.check_response(response, callback)
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 333, in check_response
+    raise ValueError(
+ValueError: The view auth_manager.views.user_login didn't return an HttpResponse object. It returned None instead.
+[2026-01-23 19:42:57,007] ERROR django.server "GET /admin/login HTTP/1.1" 500 76888
+[2026-01-23 19:42:57,792] ERROR django.request Internal Server Error: /admin/login
+Traceback (most recent call last):
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 205, in _get_response
+    self.check_response(response, callback)
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 333, in check_response
+    raise ValueError(
+ValueError: The view auth_manager.views.user_login didn't return an HttpResponse object. It returned None instead.
+[2026-01-23 19:42:57,794] ERROR django.server "GET /admin/login HTTP/1.1" 500 76888
+[2026-01-23 19:46:57,176] ERROR django.request Internal Server Error: /admin/login
+Traceback (most recent call last):
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 205, in _get_response
+    self.check_response(response, callback)
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 333, in check_response
+    raise ValueError(
+ValueError: The view auth_manager.views.user_login didn't return an HttpResponse object. It returned None instead.
+[2026-01-23 19:46:57,178] ERROR django.server "GET /admin/login HTTP/1.1" 500 76888
+[2026-01-23 19:48:40,260] ERROR django.request Internal Server Error: /admin/login
+Traceback (most recent call last):
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 205, in _get_response
+    self.check_response(response, callback)
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 333, in check_response
+    raise ValueError(
+ValueError: The view auth_manager.views.user_login didn't return an HttpResponse object. It returned None instead.
+[2026-01-23 19:48:40,261] ERROR django.server "GET /admin/login HTTP/1.1" 500 76888
+[2026-01-23 19:49:33,622] ERROR django.request Internal Server Error: /admin/login
+Traceback (most recent call last):
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 205, in _get_response
+    self.check_response(response, callback)
+  File "F:\Projects\django\analytics_dashboard\env\Lib\site-packages\django\core\handlers\base.py", line 333, in check_response
+    raise ValueError(
+ValueError: The view auth_manager.views.user_login didn't return an HttpResponse object. It returned None instead.
+[2026-01-23 19:49:33,624] ERROR django.server "GET /admin/login HTTP/1.1" 500 76888
+[2026-01-23 20:30:11,885] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-01-23 20:30:18,979] INFO django.server "GET / HTTP/1.1" 302 0
+[2026-01-23 20:30:19,056] INFO django.server "GET /admin/login HTTP/1.1" 200 2112
+[2026-01-23 20:30:19,170] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 20029
+[2026-01-23 20:30:33,994] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 20:30:33,995] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 21:25:40,605] INFO django.utils.autoreload F:\Projects\django\analytics_dashboard\auth_manager\forms.py changed, reloading.
+[2026-01-23 21:25:41,326] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-01-23 21:25:44,666] INFO django.server "GET /admin/login HTTP/1.1" 200 2386
+[2026-01-23 21:25:44,695] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 21:25:44,696] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 21:25:44,800] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 21:25:44,800] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 20029
+[2026-01-23 21:29:46,676] INFO django.server "GET /admin/login HTTP/1.1" 200 1040
+[2026-01-23 21:29:46,701] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 21:29:46,702] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 21:29:46,702] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 20029
+[2026-01-23 21:29:46,703] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 21:30:50,657] INFO django.server "GET /admin/login HTTP/1.1" 200 1040
+[2026-01-23 21:30:50,677] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 21:30:50,678] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 21:30:50,684] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 20029
+[2026-01-23 21:30:50,684] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 21:30:58,125] INFO django.server "GET /admin/login HTTP/1.1" 200 1040
+[2026-01-23 21:30:58,153] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 21:30:58,153] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 20029
+[2026-01-23 21:30:58,154] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 21:30:58,154] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 21:31:12,466] INFO django.server "GET /admin/login HTTP/1.1" 200 2387
+[2026-01-23 21:31:12,489] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 21:31:12,490] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 21:31:12,493] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 20029
+[2026-01-23 21:31:12,493] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 21:35:08,283] INFO django.server "GET /admin/login HTTP/1.1" 200 2480
+[2026-01-23 21:35:08,306] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 21:35:08,306] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 21:35:08,310] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 20029
+[2026-01-23 21:35:08,311] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 21:36:37,921] INFO django.server "GET /admin/login HTTP/1.1" 200 727
+[2026-01-23 21:36:37,946] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 21:36:37,948] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 21:36:37,949] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 20029
+[2026-01-23 21:36:37,950] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 21:43:21,118] INFO django.utils.autoreload F:\Projects\django\analytics_dashboard\analytics_dashboard\settings.py changed, reloading.
+[2026-01-23 21:43:21,658] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-01-23 21:45:09,567] INFO django.utils.autoreload F:\Projects\django\analytics_dashboard\analytics_dashboard\settings.py changed, reloading.
+[2026-01-23 21:45:10,081] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-01-23 21:48:45,443] INFO django.server "GET /admin/login HTTP/1.1" 200 727
+[2026-01-23 21:48:45,467] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 21:48:45,470] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 21:48:45,588] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 21:48:45,594] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 72452
+[2026-01-23 21:53:41,245] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-01-23 21:53:43,970] INFO django.server "GET /admin/login HTTP/1.1" 200 727
+[2026-01-23 21:53:43,991] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 21:53:43,993] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 21:53:44,125] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 72452
+[2026-01-23 21:53:44,125] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 21:54:29,933] INFO django.server "GET /admin/login HTTP/1.1" 200 728
+[2026-01-23 21:54:29,956] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 21:54:29,957] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 21:54:29,958] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 72452
+[2026-01-23 21:54:29,958] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 21:54:47,849] INFO django.server "GET /admin/login HTTP/1.1" 200 728
+[2026-01-23 21:54:47,872] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 21:54:47,874] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 21:54:47,875] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 21:54:47,876] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 72452
+[2026-01-23 21:54:51,321] INFO django.server "GET /admin/login HTTP/1.1" 200 728
+[2026-01-23 21:54:51,343] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 21:54:51,344] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 21:54:51,345] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 72452
+[2026-01-23 21:54:51,346] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 21:54:51,561] WARNING django.request Not Found: /favicon.ico
+[2026-01-23 21:54:51,562] WARNING django.server "GET /favicon.ico HTTP/1.1" 404 2514
+[2026-01-23 22:03:49,417] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-01-23 22:03:55,739] INFO django.server "GET /admin/login HTTP/1.1" 200 728
+[2026-01-23 22:03:55,789] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:03:55,790] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:03:55,883] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 19706
+[2026-01-23 22:03:55,883] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 22:03:56,080] WARNING django.request Not Found: /favicon.ico
+[2026-01-23 22:03:56,081] WARNING django.server "GET /favicon.ico HTTP/1.1" 404 2514
+[2026-01-23 22:04:02,557] INFO django.server "GET /admin/login HTTP/1.1" 200 728
+[2026-01-23 22:04:02,581] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:04:02,583] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:04:02,584] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 19706
+[2026-01-23 22:04:02,585] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 22:10:08,730] INFO django.utils.autoreload F:\Projects\django\analytics_dashboard\analytics_dashboard\settings.py changed, reloading.
+[2026-01-23 22:10:09,250] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-01-23 22:10:34,241] INFO django.utils.autoreload F:\Projects\django\analytics_dashboard\analytics_dashboard\settings.py changed, reloading.
+[2026-01-23 22:10:34,791] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-01-23 22:13:30,559] INFO django.server "GET /admin/login HTTP/1.1" 200 728
+[2026-01-23 22:13:30,593] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:13:30,594] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:13:30,703] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 22:13:30,704] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 72329
+[2026-01-23 22:25:26,248] INFO django.server "GET /admin/login HTTP/1.1" 200 728
+[2026-01-23 22:25:26,286] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:25:26,288] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:25:26,289] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 72329
+[2026-01-23 22:25:26,289] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 22:25:30,435] INFO django.server "GET /admin/login HTTP/1.1" 200 728
+[2026-01-23 22:25:30,455] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:25:30,457] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:25:30,458] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 72329
+[2026-01-23 22:25:30,459] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 22:25:30,688] WARNING django.request Not Found: /favicon.ico
+[2026-01-23 22:25:30,688] WARNING django.server "GET /favicon.ico HTTP/1.1" 404 2514
+[2026-01-23 22:25:41,583] INFO django.server "GET /admin/login HTTP/1.1" 200 728
+[2026-01-23 22:25:41,603] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:25:41,605] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:25:41,607] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 22:25:41,607] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 72329
+[2026-01-23 22:28:24,369] INFO django.server "GET /admin/login HTTP/1.1" 200 963
+[2026-01-23 22:28:24,391] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:28:24,392] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:28:24,396] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 72329
+[2026-01-23 22:28:24,396] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 22:29:45,869] INFO django.server "GET /admin/login HTTP/1.1" 200 1000
+[2026-01-23 22:29:45,898] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:29:45,899] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:29:45,900] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 22:29:45,900] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 72329
+[2026-01-23 22:35:35,567] INFO django.server "GET /admin/login HTTP/1.1" 200 1000
+[2026-01-23 22:35:35,588] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 54776
+[2026-01-23 22:35:35,588] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 22:35:35,607] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:35:35,608] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:42:43,807] INFO django.utils.autoreload F:\Projects\django\analytics_dashboard\analytics_dashboard\settings.py changed, reloading.
+[2026-01-23 22:42:44,446] INFO django.utils.autoreload Watching for file changes with StatReloader
+[2026-01-23 22:42:58,272] INFO django.server "GET /admin/login HTTP/1.1" 200 1000
+[2026-01-23 22:42:58,309] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:42:58,310] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:42:58,419] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 22:42:58,420] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 98519
+[2026-01-23 22:44:53,193] INFO django.server "GET /admin/login HTTP/1.1" 200 2480
+[2026-01-23 22:44:53,215] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:44:53,216] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:44:53,217] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 22:44:53,218] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 98519
+[2026-01-23 22:45:03,761] INFO django.server "GET /admin/signup HTTP/1.1" 200 2986
+[2026-01-23 22:45:03,854] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:45:03,854] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:45:03,863] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 22:45:03,863] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 98519
+[2026-01-23 22:45:07,914] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:45:07,914] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:45:07,944] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:45:07,945] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:49:35,840] INFO django.server "GET /admin/login HTTP/1.1" 200 2468
+[2026-01-23 22:49:35,858] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 22:49:35,859] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 98519
+[2026-01-23 22:49:36,156] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:49:36,157] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:49:47,589] INFO django.server "GET /admin/login HTTP/1.1" 200 2480
+[2026-01-23 22:49:47,615] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 22:49:47,616] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 98519
+[2026-01-23 22:49:47,627] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:49:47,628] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:51:41,691] INFO django.server "GET /admin/login HTTP/1.1" 200 2492
+[2026-01-23 22:51:41,709] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 22:51:41,710] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 98663
+[2026-01-23 22:51:41,715] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:51:41,717] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:51:54,660] INFO django.server "GET /admin/login HTTP/1.1" 200 2494
+[2026-01-23 22:51:54,682] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 22:51:54,682] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 98813
+[2026-01-23 22:51:54,688] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:51:54,688] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:52:28,240] INFO django.server "GET /admin/login HTTP/1.1" 200 2480
+[2026-01-23 22:52:28,258] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 98813
+[2026-01-23 22:52:28,258] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 22:52:28,264] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:52:28,265] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:52:50,526] INFO django.server "GET /admin/login HTTP/1.1" 200 2491
+[2026-01-23 22:52:50,547] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 22:52:50,547] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 98954
+[2026-01-23 22:52:50,556] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:52:50,556] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:58:26,780] INFO django.server "GET /admin/login HTTP/1.1" 200 2438
+[2026-01-23 22:58:26,800] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 22:58:26,801] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 98954
+[2026-01-23 22:58:26,811] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:58:26,812] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:59:02,345] INFO django.server "GET /admin/login HTTP/1.1" 200 2449
+[2026-01-23 22:59:02,365] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 22:59:02,366] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 99336
+[2026-01-23 22:59:02,374] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:59:02,375] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:59:12,450] INFO django.server "GET /admin/login HTTP/1.1" 200 2438
+[2026-01-23 22:59:12,477] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:59:12,479] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:59:12,480] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 22:59:12,481] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 99336
+[2026-01-23 22:59:17,447] INFO django.server "POST /admin/login HTTP/1.1" 200 2608
+[2026-01-23 22:59:17,479] WARNING django.request Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-23 22:59:17,481] WARNING django.server "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2625
+[2026-01-23 22:59:17,482] INFO django.server "GET /static/js/htmx.min.js HTTP/1.1" 200 51250
+[2026-01-23 22:59:17,483] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 200 99336
+[2026-01-23 22:59:33,778] INFO django.server "POST /admin/login HTTP/1.1" 200 2609
+[2026-01-23 22:59:33,794] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 304 0
+[2026-01-23 23:01:18,101] INFO django.server "GET /admin/login HTTP/1.1" 200 2438
+[2026-01-23 23:01:18,115] INFO django.server "GET /static/css/dist/styles.css HTTP/1.1" 304 0
+[2026-01-23 23:01:19,751] INFO django.server "GET /admin/signup HTTP/1.1" 200 3304
+[2026-01-23 23:01:25,651] INFO django.server "GET /admin/login HTTP/1.1" 200 2438
+[2026-01-23 23:01:26,447] INFO django.server "GET /admin/signup HTTP/1.1" 200 3304
