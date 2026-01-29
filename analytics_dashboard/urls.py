@@ -25,4 +25,5 @@ urlpatterns = [
     path("", root_redirect),
     path('admin/', include('auth_manager.urls')),
     path('dadmin/', admin.site.urls),
+    path('api/events/', include('events.urls'))
 ]

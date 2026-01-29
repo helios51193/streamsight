@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ["localhost","127.0.0.1"] + (os.getenv("ALLOWED_HOSTS").split(",
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,7 +42,10 @@ INSTALLED_APPS = [
     "theme",
     'django.contrib.staticfiles',
     'django_jinja',
-    'auth_manager'
+    "channels",
+    "events",
+    'auth_manager',
+    
 ]
 
 MIDDLEWARE = [
@@ -162,6 +166,22 @@ NPM_BIN_PATH = os.getenv("NPM_BIN_PATH")
 #LOGGING
 LOG_DIR = BASE_DIR / "logs"
 os.makedirs(LOG_DIR, exist_ok=True)
+
+# REDIS
+REDIS_HOST= os.getenv("REDIS_HOST","localhost")
+REDIS_PORT = os.getenv("REDIS_PORT", "6379")
+
+# CHANNELS
+ASGI_APPLICATION = "analytics_dashboard.asgi.application"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],  # or ("redis", 6379)
+        },
+    },
+}
+
 
 LOGGING = {
     "version": 1,
