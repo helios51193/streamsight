@@ -1,10 +1,13 @@
 import traceback
 from django.shortcuts import render,redirect
 
+from auth_manager.utilities.authenticated_redirector import redirect_authenticated
+
 from .forms import LoginForm,SignupForm
 from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
+@redirect_authenticated(to='dashboard:dashboard_index')
 def user_login(request):
 
     form = LoginForm()
@@ -25,7 +28,7 @@ def user_login(request):
                 if user is not None:
                     print("Authenticated")
                     login(request,user)
-                    return redirect('document_manager:document_dashboard')
+                    return redirect('dashboard:dashboard_index')
                 else:
                     context['has_errors'] = True
                     context['errors'] = ['Invalid email and/or password']

@@ -3,3 +3,4 @@ env
 theme/static_src/node_modules
 *.pyc
 *.sqlite3
+logs/*

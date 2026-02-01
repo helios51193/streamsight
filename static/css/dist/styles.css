@@ -15,6 +15,8 @@
     --text-sm--line-height: calc(1.25 / 0.875);
     --text-base: 1rem;
     --text-base--line-height: calc(1.5 / 1);
+    --text-lg: 1.125rem;
+    --text-lg--line-height: calc(1.75 / 1.125);
     --text-2xl: 1.5rem;
     --text-2xl--line-height: calc(2 / 1.5);
     --text-5xl: 3rem;
@@ -678,6 +680,79 @@
     }
   }
   @layer daisyui.l1.l2.l3 {
+    .table {
+      font-size: 0.875rem;
+      position: relative;
+      width: 100%;
+      border-collapse: separate;
+      --tw-border-spacing-x: calc(0.25rem * 0);
+      --tw-border-spacing-y: calc(0.25rem * 0);
+      border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);
+      border-radius: var(--radius-box);
+      text-align: left;
+    }
+    .table:where(:dir(rtl), [dir="rtl"], [dir="rtl"] *) {
+      text-align: right;
+    }
+    @media (hover: hover) {
+      .table tr.row-hover:hover, .table tr.row-hover:nth-child(even):hover {
+        background-color: var(--color-base-200);
+      }
+    }
+    .table :where(th, td) {
+      padding-inline: calc(0.25rem * 4);
+      padding-block: calc(0.25rem * 3);
+      vertical-align: middle;
+    }
+    .table :where(thead, tfoot) {
+      white-space: nowrap;
+      color: var(--color-base-content);
+    }
+    @supports (color: color-mix(in lab, red, red)) {
+      .table :where(thead, tfoot) {
+        color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
+      }
+    }
+    .table :where(thead, tfoot) {
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+    .table :where(tfoot tr:first-child :is(td, th)) {
+      border-top: var(--border) solid var(--color-base-content);
+    }
+    @supports (color: color-mix(in lab, red, red)) {
+      .table :where(tfoot tr:first-child :is(td, th)) {
+        border-top: var(--border) solid color-mix(in oklch, var(--color-base-content) 5%, #0000);
+      }
+    }
+    .table :where(.table-pin-rows thead tr) {
+      position: sticky;
+      top: calc(0.25rem * 0);
+      z-index: 1;
+      background-color: var(--color-base-100);
+    }
+    .table :where(.table-pin-rows tfoot tr) {
+      position: sticky;
+      bottom: calc(0.25rem * 0);
+      z-index: 1;
+      background-color: var(--color-base-100);
+    }
+    .table :where(.table-pin-cols tr th) {
+      position: sticky;
+      right: calc(0.25rem * 0);
+      left: calc(0.25rem * 0);
+      background-color: var(--color-base-100);
+    }
+    .table :where(thead tr :is(td, th), tbody tr:not(:last-child) :is(td, th)) {
+      border-bottom: var(--border) solid var(--color-base-content);
+    }
+    @supports (color: color-mix(in lab, red, red)) {
+      .table :where(thead tr :is(td, th), tbody tr:not(:last-child) :is(td, th)) {
+        border-bottom: var(--border) solid color-mix(in oklch, var(--color-base-content) 5%, #0000);
+      }
+    }
+  }
+  @layer daisyui.l1.l2.l3 {
     .select {
       border: var(--border) solid #0000;
       position: relative;
@@ -1057,6 +1132,20 @@
     }
   }
   @layer daisyui.l1.l2.l3 {
+    .navbar {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      padding: 0.5rem;
+      min-height: 4rem;
+    }
+  }
+  @layer daisyui.l1.l2 {
+    :where(.navbar) {
+      position: relative;
+    }
+  }
+  @layer daisyui.l1.l2.l3 {
     .card {
       position: relative;
       display: flex;
@@ -1272,6 +1361,9 @@
       max-width: 96rem;
     }
   }
+  .m-2 {
+    margin: calc(var(--spacing) * 2);
+  }
   .mx-auto {
     margin-inline: auto;
   }
@@ -1327,6 +1419,18 @@
   .join-item:where(*:is(:disabled, [disabled], .btn-disabled)) {
     border-width: var(--border, 1px) 0 var(--border, 1px) var(--border, 1px);
   }
+  .mt-1 {
+    margin-top: calc(var(--spacing) * 1);
+  }
+  .mt-5 {
+    margin-top: calc(var(--spacing) * 5);
+  }
+  .mb-6 {
+    margin-bottom: calc(var(--spacing) * 6);
+  }
+  .ml-2 {
+    margin-left: calc(var(--spacing) * 2);
+  }
   @layer daisyui.l1.l2.l3 {
     .status {
       display: inline-block;
@@ -1356,6 +1460,28 @@
       .status {
         box-shadow: 0 2px 3px -1px color-mix(in oklab, currentColor calc(var(--depth) * 100%), #0000);
       }
+    }
+  }
+  @layer daisyui.l1.l2.l3 {
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: calc(0.25rem * 2);
+      border-radius: var(--radius-selector);
+      vertical-align: middle;
+      color: var(--badge-fg);
+      border: var(--border) solid var(--badge-color, var(--color-base-200));
+      font-size: 0.875rem;
+      width: fit-content;
+      background-size: auto, calc(var(--noise) * 100%);
+      background-image: none, var(--fx-noise);
+      background-color: var(--badge-bg);
+      --badge-bg: var(--badge-color, var(--color-base-100));
+      --badge-fg: var(--color-base-content);
+      --size: calc(var(--size-selector, 0.25rem) * 6);
+      height: var(--size);
+      padding-inline: calc(var(--size) / 2 - var(--border));
     }
   }
   @layer daisyui.l1.l2.l3 {
@@ -1408,6 +1534,15 @@
     }
   }
   @layer daisyui.l1.l2.l3 {
+    .card-title {
+      display: flex;
+      align-items: center;
+      gap: calc(0.25rem * 2);
+      font-size: var(--cardtitle-fs, 1.125rem);
+      font-weight: 600;
+    }
+  }
+  @layer daisyui.l1.l2.l3 {
     .mask {
       display: inline-block;
       vertical-align: middle;
@@ -1425,6 +1560,9 @@
   .inline {
     display: inline;
   }
+  .table {
+    display: table;
+  }
   .h-screen {
     height: 100vh;
   }
@@ -1433,6 +1571,12 @@
   }
   .w-full {
     width: 100%;
+  }
+  .flex-1 {
+    flex: 1;
+  }
+  .flex-none {
+    flex: none;
   }
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
@@ -1481,6 +1625,36 @@
     margin-block-start: calc(calc(var(--spacing) * 6) * var(--tw-space-y-reverse));
     margin-block-end: calc(calc(var(--spacing) * 6) * calc(1 - var(--tw-space-y-reverse)));
   }
+  .overflow-x-auto {
+    overflow-x: auto;
+  }
+  .rounded-box {
+    border-radius: var(--radius-box);
+  }
+  .rounded-box {
+    border-radius: var(--radius-box);
+  }
+  @layer daisyui.l1.l2 {
+    .badge-outline {
+      color: var(--badge-color);
+      --badge-bg: #0000;
+      background-image: none;
+      border-color: currentColor;
+    }
+  }
+  @layer daisyui.l1.l2 {
+    .table-zebra tbody tr:where(:nth-child(even)) {
+      background-color: var(--color-base-200);
+    }
+    .table-zebra tbody tr:where(:nth-child(even)) :where(.table-pin-cols tr th) {
+      background-color: var(--color-base-200);
+    }
+    @media (hover: hover) {
+      .table-zebra tbody tr.row-hover:hover, .table-zebra tbody tr.row-hover:where(:nth-child(even)):hover {
+        background-color: var(--color-base-300);
+      }
+    }
+  }
   .bg-base-100 {
     background-color: var(--color-base-100);
   }
@@ -1489,6 +1663,9 @@
   }
   .bg-gray-50 {
     background-color: var(--color-gray-50);
+  }
+  .p-6 {
+    padding: calc(var(--spacing) * 6);
   }
   .p-8 {
     padding: calc(var(--spacing) * 8);
@@ -1510,6 +1687,10 @@
   .text-base {
     font-size: var(--text-base);
     line-height: var(--tw-leading, var(--text-base--line-height));
+  }
+  .text-lg {
+    font-size: var(--text-lg);
+    line-height: var(--tw-leading, var(--text-lg--line-height));
   }
   .text-sm {
     font-size: var(--text-sm);
@@ -1560,6 +1741,14 @@
       }
     }
   }
+  .text-base-content\/50 {
+    color: var(--color-base-content);
+  }
+  @supports (color: color-mix(in lab, red, red)) {
+    .text-base-content\/50 {
+      color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+    }
+  }
   .text-base-content\/70 {
     color: var(--color-base-content);
   }
@@ -1571,8 +1760,16 @@
   .text-black {
     color: var(--color-black);
   }
+  .shadow {
+    --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
   .shadow-2xl {
     --tw-shadow: 0 25px 50px -12px var(--tw-shadow-color, rgb(0 0 0 / 0.25));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-xl {
+    --tw-shadow: 0 20px 25px -5px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 8px 10px -6px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
   .transition {
@@ -1596,6 +1793,25 @@
         --btn-border: var(--btn-color);
         --btn-noise: none;
       }
+    }
+  }
+  @layer daisyui.l1.l2 {
+    .btn-sm {
+      --fontsize: 0.75rem;
+      --btn-p: 0.75rem;
+      --size: calc(var(--size-field, 0.25rem) * 8);
+    }
+  }
+  @layer daisyui.l1.l2 {
+    .badge-error {
+      --badge-color: var(--color-error);
+      --badge-fg: var(--color-error-content);
+    }
+  }
+  @layer daisyui.l1.l2 {
+    .badge-success {
+      --badge-color: var(--color-success);
+      --badge-fg: var(--color-success-content);
     }
   }
   @layer daisyui.l1.l2.l3 {

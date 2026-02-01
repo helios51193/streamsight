@@ -24,6 +24,7 @@ def root_redirect(request):
 urlpatterns = [
     path("", root_redirect),
     path('admin/', include('auth_manager.urls')),
+    path('dashboard/', include('dashboard.urls')),
     path('dadmin/', admin.site.urls),
     path('api/events/', include('events.urls'))
 ]

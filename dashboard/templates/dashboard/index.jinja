@@ -1,0 +1,110 @@
+{% extends "dashboard/dashboard_base.jinja" %}
+
+{% block title %}Dashboard{% endblock %}
+
+
+{% block content %}
+{% include 'dashboard/dashboard_navbar.jinja' %}
+
+<!-- Dashboard content -->
+<div x-data="event_stream()" x-init="connect()">
+    <!-- Event feed card -->
+    <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title"> Live Events </h2>
+            <div class="overflow-x-auto">
+                <table class="table table-zebra w-full">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Type</th>
+                            <th>Source</th>
+                            <th>Status</th>
+                            <th>Duration (ms)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <!-- Empty state -->
+                        <template x-if="events.length === 0">
+                            <tr>
+                                <td colspan="5" class="text-center text-sm text-base-content/50">
+                                    Waiting for events…
+                                </td>
+                            </tr>
+                        </template>
+                        <!-- Event rows -->
+                        <template x-for="event in events" :key="event.id">
+                            <tr x-transition.opacity.duration.300 >
+                                <td x-text="format_time(event.timestamp)"></td>
+                                <td>
+                                    <span class="badge badge-outline" x-text="event.event_type"></span>
+                                </td>
+                                <td x-text="event.source"></td>
+                                <td>
+                                    <span class="badge"
+                                        :class="event.status === 'success'
+                                                ? 'badge-success'
+                                                : 'badge-error'"
+                                        x-text="event.status">
+                                    </span>
+                                </td>
+
+                            <td x-text="event.duration_ms?? '-'"></td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Alpine component -->
+<script>
+    function event_stream(){
+        return {
+            events: [],
+            socket:null,
+            max_events: 50,
+            connect(){
+                const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+                const url = `${protocol}://${window.location.host}/ws/events/`;
+                this.socket = new WebSocket(url);
+                this.socket.onmessage = (e) => {
+                    const data = JSON.parse(e.data);
+                    this.add_event(data);
+                };
+                this.socket.onclose = () => {
+                    console.warn("WebSocket disconnected");
+                };
+
+            },
+            add_event(event){
+                this.events.unshift(event);
+                if(this.events.length >  this.max_events){
+                    this.events.pop()
+                }
+            },
+            format_time(ts){
+                const d = new Date(ts);
+                const day = String(d.getDate()).padStart(2, "0");
+                const month = String(d.getMonth() + 1).padStart(2, "0");
+                const year = d.getFullYear();
+
+                let hours = d.getHours();
+                const minutes = String(d.getMinutes()).padStart(2, "0");
+
+                const ampm = hours >= 12 ? "PM" : "AM";
+                hours = hours % 12;
+                hours = hours ? hours : 12; // 0 → 12
+                hours = String(hours).padStart(2, "0");
+
+                return `${day}-${month}-${year} ${hours}:${minutes} ${ampm}`;
+            }
+        }
+    }
+
+</script>
+
+
+
+{% endblock %}
