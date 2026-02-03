@@ -6,4 +6,5 @@ app_name = "dashboard"
 
 urlpatterns = [
     path("", views.dashboard_index, name="dashboard_index"),
+    path("initial/", views.initial_events, name="dashboard_initial_events")
 ]

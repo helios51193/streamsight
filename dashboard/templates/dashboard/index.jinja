@@ -7,11 +7,51 @@
 {% include 'dashboard/dashboard_navbar.jinja' %}
 
 <!-- Dashboard content -->
-<div x-data="event_stream()" x-init="connect()">
+<div x-data="event_stream()" x-init="init()">
+    <!-- Metric Card -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        <!-- Total Events -->
+        <div class="card bg-base-100 shadow">
+            <div class="card-body">
+            <p class="text-sm text-base-content/70">Total Events</p>
+            <h2 class="text-2xl font-semibold" x-text="total_events"></h2>
+            </div>
+        </div>
+        <!-- Events / Minute -->
+        <div class="card bg-base-100 shadow">
+            <div class="card-body">
+            <p class="text-sm text-base-content/70">Events / Minute</p>
+            <h2 class="text-2xl font-semibold" x-text="events_per_minute"></h2>
+            </div>
+        </div>
+        <!-- Success Rate -->
+        <div class="card bg-base-100 shadow">
+            <div class="card-body">
+            <p class="text-sm text-base-content/70">Success Rate</p>
+            <h2 class="text-2xl font-semibold text-success">
+                <span x-text="success_rate"></span>%
+            </h2>
+            </div>
+        </div>
+        <!-- Error Rate -->
+        <div class="card bg-base-100 shadow">
+            <div class="card-body">
+            <p class="text-sm text-base-content/70">Error Rate</p>
+            <h2 class="text-2xl font-semibold text-error">
+                <span x-text="error_rate"></span>%
+            </h2>
+            </div>
+        </div>
+    </div>
     <!-- Event feed card -->
     <div class="card bg-base-100 shadow-xl">
         <div class="card-body">
-            <h2 class="card-title"> Live Events </h2>
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="card-title">Live Events</h2>
+                <button class="btn btn-sm" :class="paused ? 'btn-success' : 'btn-outline'" @click="paused = !paused">
+                    <span x-text="paused ? 'Resume' : 'Pause'"></span>
+                </button>
+            </div>
             <div class="overflow-x-auto">
                 <table class="table table-zebra w-full">
                     <thead>
@@ -24,7 +64,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                            <!-- Empty state -->
+                        <!-- Empty state -->
                         <template x-if="events.length === 0">
                             <tr>
                                 <td colspan="5" class="text-center text-sm text-base-content/50">
@@ -34,22 +74,19 @@
                         </template>
                         <!-- Event rows -->
                         <template x-for="event in events" :key="event.id">
-                            <tr x-transition.opacity.duration.300 >
+                            <tr x-transition.opacity class="transition-colors duration-700"
+                                        :class="highlight_id === event.id ? 'bg-warning/10' : ''">
                                 <td x-text="format_time(event.timestamp)"></td>
                                 <td>
                                     <span class="badge badge-outline" x-text="event.event_type"></span>
                                 </td>
                                 <td x-text="event.source"></td>
                                 <td>
-                                    <span class="badge"
-                                        :class="event.status === 'success'
-                                                ? 'badge-success'
-                                                : 'badge-error'"
+                                    <span class="badge" :class="event.status === 'success' ? 'badge-success' : 'badge-error'"
                                         x-text="event.status">
                                     </span>
                                 </td>
-
-                            <td x-text="event.duration_ms?? '-'"></td>
+                                <td x-text="event.duration_ms ?? '-'"></td>
                             </tr>
                         </template>
                     </tbody>
@@ -65,11 +102,28 @@
             events: [],
             socket:null,
             max_events: 50,
+            paused:false,
+            highlight_id:null,
+            async init(){
+                await this.load_initial_events();
+                this.connect()
+            },
+            async load_initial_events(){
+                try {
+                        const res = await fetch("{{ url('dashboard:dashboard_initial_events') }}");
+                        const data = await res.json();
+                        this.events = data;
+                } catch (err) {
+                    console.error("Failed to load initial events", err);
+                }
+            },
             connect(){
                 const protocol = window.location.protocol === "https:" ? "wss" : "ws";
                 const url = `${protocol}://${window.location.host}/ws/events/`;
+                if (this.socket) return;
                 this.socket = new WebSocket(url);
                 this.socket.onmessage = (e) => {
+                    if (this.paused) return;
                     const data = JSON.parse(e.data);
                     this.add_event(data);
                 };
@@ -80,9 +134,16 @@
             },
             add_event(event){
                 this.events.unshift(event);
+                this.highlight_id = event.id;
                 if(this.events.length >  this.max_events){
                     this.events.pop()
                 }
+                 // remove highlight after 800ms
+                setTimeout(() => {
+                    if (this.highlight_id === event.id) {
+                        this.highlight_id = null;
+                    }
+                }, 800);
             },
             format_time(ts){
                 const d = new Date(ts);
@@ -99,7 +160,33 @@
                 hours = String(hours).padStart(2, "0");
 
                 return `${day}-${month}-${year} ${hours}:${minutes} ${ampm}`;
-            }
+            },
+            get total_events(){
+                return this.events.length;
+            },
+            get success_count(){
+                return this.events.filter(e => e.status === "success").length;
+            },
+            get error_count(){
+                return this.events.filter(e => e.status !== "success").length;
+            },
+            get success_rate(){
+                if (this.total_events === 0) return 0;
+                return Math.round((this.success_count / this.total_events) * 100);
+            },
+            get error_rate(){
+                if (this.total_events === 0) return 0;
+                return Math.round((this.error_count / this.total_events) * 100);
+            },
+            get events_per_minute() {
+                const now = Date.now();
+                const one_minute_ago = now - 60_000;
+
+                return this.events.filter(e => {
+                    return new Date(e.timestamp).getTime() >= one_minute_ago;
+                }).length;
+            },
+            
         }
     }
 

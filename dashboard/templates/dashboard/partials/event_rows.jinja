@@ -1,0 +1,27 @@
+{% for event in events %}
+<tr>
+  <td>{{ event.timestamp|date("d-m-Y h:i A") }}</td>
+
+  <td>
+    <span class="badge badge-outline">
+      {{ event.event_type }}
+    </span>
+  </td>
+
+  <td>{{ event.source }}</td>
+
+  <td>
+    <span class="badge
+      {% if event.status == 'success' %}
+        badge-success
+      {% else %}
+        badge-error
+      {% endif %}
+    ">
+      {{ event.status }}
+    </span>
+  </td>
+
+  <td>{{ event.duration_ms or "-" }}</td>
+</tr>
+{% endfor %}
