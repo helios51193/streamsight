@@ -5,123 +5,177 @@
 
 {% block content %}
 {% include 'dashboard/dashboard_navbar.jinja' %}
-
-<!-- Dashboard content -->
 <div x-data="event_stream()" x-init="init()">
-    <!-- Metric Card -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        <!-- Total Events -->
-        <div class="card bg-base-100 shadow">
-            <div class="card-body">
-            <p class="text-sm text-base-content/70">Total Events</p>
-            <h2 class="text-2xl font-semibold" x-text="total_events"></h2>
-            </div>
-        </div>
-        <!-- Events / Minute -->
-        <div class="card bg-base-100 shadow">
-            <div class="card-body">
-            <p class="text-sm text-base-content/70">Events / Minute</p>
-            <h2 class="text-2xl font-semibold" x-text="events_per_minute"></h2>
-            </div>
-        </div>
-        <!-- Success Rate -->
-        <div class="card bg-base-100 shadow">
-            <div class="card-body">
-            <p class="text-sm text-base-content/70">Success Rate</p>
-            <h2 class="text-2xl font-semibold text-success">
-                <span x-text="success_rate"></span>%
-            </h2>
-            </div>
-        </div>
-        <!-- Error Rate -->
-        <div class="card bg-base-100 shadow">
-            <div class="card-body">
-            <p class="text-sm text-base-content/70">Error Rate</p>
-            <h2 class="text-2xl font-semibold text-error">
-                <span x-text="error_rate"></span>%
-            </h2>
-            </div>
-        </div>
+    <div x-show="!connected" x-transition class="alert alert-warning mb-4">
+        <span>
+            <template x-if="reconnect_attempts === 0">
+                <span>Connecting to realtime stream…</span>
+            </template>
+
+            <template x-if="reconnect_attempts > 0">
+                <span>
+                    Disconnected. Reconnecting
+                    (<span x-text="reconnect_attempts"></span>)…
+                </span>
+            </template>
+        </span>
     </div>
-    <!-- Event feed card -->
-    <div class="card bg-base-100 shadow-xl">
-        <div class="card-body">
-            <div class="flex items-center justify-between mb-2">
-                <h2 class="card-title">Live Events</h2>
-                <button class="btn btn-sm" :class="paused ? 'btn-success' : 'btn-outline'" @click="paused = !paused">
-                    <span x-text="paused ? 'Resume' : 'Pause'"></span>
-                </button>
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+
+        <!-- LEFT: Metrics + Charts -->
+        <div class="lg:col-span-2 space-y-6">
+            <!-- metric cards -->
+            <div class="grid grid-cols-2 gap-4">
+
+                <div class="card bg-base-100 shadow">
+                    <div class="card-body p-4">
+                        <p class="text-xs text-base-content/70">Total Events</p>
+                        <h2 class="text-2xl font-semibold" x-text="total_events"></h2>
+                    </div>
+                </div>
+
+                <div class="card bg-base-100 shadow">
+                    <div class="card-body p-4">
+                        <p class="text-xs text-base-content/70">Events / Min</p>
+                        <h2 class="text-2xl font-semibold" x-text="events_per_minute"></h2>
+                    </div>
+                </div>
+
+                <div class="card bg-base-100 shadow">
+                    <div class="card-body p-4">
+                        <p class="text-xs text-base-content/70">Success Rate</p>
+                        <h2 class="text-xl font-semibold text-success">
+                            <span x-text="success_rate"></span>%
+                        </h2>
+                    </div>
+                </div>
+
+                <div class="card bg-base-100 shadow">
+                    <div class="card-body p-4">
+                        <p class="text-xs text-base-content/70">Error Rate</p>
+                        <h2 class="text-xl font-semibold text-error">
+                            <span x-text="error_rate"></span>%
+                        </h2>
+                    </div>
+                </div>
+
             </div>
-            <div class="overflow-x-auto">
-                <table class="table table-zebra w-full">
-                    <thead>
-                        <tr>
-                            <th>Time</th>
-                            <th>Type</th>
-                            <th>Source</th>
-                            <th>Status</th>
-                            <th>Duration (ms)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Empty state -->
-                        <template x-if="events.length === 0">
-                            <tr>
-                                <td colspan="5" class="text-center text-sm text-base-content/50">
-                                    Waiting for events…
-                                </td>
-                            </tr>
-                        </template>
-                        <!-- Event rows -->
-                        <template x-for="event in events" :key="event.id">
-                            <tr x-transition.opacity class="transition-colors duration-700"
+            <!-- charts -->
+            <div class="card bg-base-100 shadow">
+                <div class="card-body p-4">
+                    <h2 class="text-sm font-medium mb-2">Events per Minute</h2>
+                    <canvas id="events_chart" height="160"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT: Event stream -->
+        <div class="lg:col-span-3">
+            <!-- live events table -->
+            <div class="card bg-base-100 shadow h-full">
+                <div class="card-body p-4">
+
+                    <div class="flex items-center justify-between mb-2">
+                        <h2 class="font-medium">Live Events</h2>
+
+                        <button class="btn btn-xs" :class="paused ? 'btn-success' : 'btn-outline'"
+                            @click="paused = !paused">
+                            <span x-text="paused ? 'Resume' : 'Pause'"></span>
+                        </button>
+                    </div>
+
+                    <div class="overflow-y-auto max-h-[70vh]">
+                        <table class="table table-sm table-zebra w-full">
+                            <!-- same table as before -->
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Type</th>
+                                    <th>Source</th>
+                                    <th>Status</th>
+                                    <th>Duration (ms)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Empty state -->
+                                <template x-if="events.length === 0">
+                                    <tr>
+                                        <td colspan="5" class="text-center text-sm text-base-content/50">
+                                            Waiting for events…
+                                        </td>
+                                    </tr>
+                                </template>
+                                <!-- Event rows -->
+                                <template x-for="event in events" :key="event.id">
+                                    <tr x-transition.opacity class="transition-colors duration-700"
                                         :class="highlight_id === event.id ? 'bg-warning/10' : ''">
-                                <td x-text="format_time(event.timestamp)"></td>
-                                <td>
-                                    <span class="badge badge-outline" x-text="event.event_type"></span>
-                                </td>
-                                <td x-text="event.source"></td>
-                                <td>
-                                    <span class="badge" :class="event.status === 'success' ? 'badge-success' : 'badge-error'"
-                                        x-text="event.status">
-                                    </span>
-                                </td>
-                                <td x-text="event.duration_ms ?? '-'"></td>
-                            </tr>
-                        </template>
-                    </tbody>
-                </table>
+                                        <td x-text="format_time(event.timestamp)"></td>
+                                        <td>
+                                            <span class="badge badge-outline" x-text="event.event_type"></span>
+                                        </td>
+                                        <td x-text="event.source"></td>
+                                        <td>
+                                            <span class="badge"
+                                                :class="event.status === 'success' ? 'badge-success' : 'badge-error'"
+                                                x-text="event.status">
+                                            </span>
+                                        </td>
+                                        <td x-text="event.duration_ms ?? '-'"></td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
 </div>
 <!-- Alpine component -->
 <script>
-    function event_stream(){
+    let events_chart = null;
+    function event_stream() {
         return {
             events: [],
-            socket:null,
+            socket: null,
             max_events: 50,
-            paused:false,
-            highlight_id:null,
-            async init(){
+            paused: false,
+            highlight_id: null,
+            connected: false,
+            reconnect_attempts: 0,
+            reconnect_timer: null,
+            chart_update_scheduled: false,
+            chart_data: {},
+            async init() {
                 await this.load_initial_events();
-                this.connect()
+
+                this.init_chart();
+                this.schedule_chart_update();
+
+                this.connect();
             },
-            async load_initial_events(){
+            async load_initial_events() {
                 try {
-                        const res = await fetch("{{ url('dashboard:dashboard_initial_events') }}");
-                        const data = await res.json();
-                        this.events = data;
+                    const res = await fetch("{{ url('dashboard:dashboard_initial_events') }}");
+                    const data = await res.json();
+                    this.events = data;
                 } catch (err) {
                     console.error("Failed to load initial events", err);
                 }
             },
-            connect(){
+            connect() {
+                if (this.socket) return;
+
                 const protocol = window.location.protocol === "https:" ? "wss" : "ws";
                 const url = `${protocol}://${window.location.host}/ws/events/`;
-                if (this.socket) return;
+
                 this.socket = new WebSocket(url);
+                this.socket.onopen = () => {
+                    this.connected = true;
+                    this.reconnect_attempts = 0;
+                    console.log("WebSocket connected");
+                };
                 this.socket.onmessage = (e) => {
                     if (this.paused) return;
                     const data = JSON.parse(e.data);
@@ -129,23 +183,57 @@
                 };
                 this.socket.onclose = () => {
                     console.warn("WebSocket disconnected");
+                    this.cleanup_socket();
+                    this.schedule_reconnect();
+                };
+                this.socket.onerror = () => {
+                    this.cleanup_socket();
+                    this.schedule_reconnect();
                 };
 
             },
-            add_event(event){
+            cleanup_socket() {
+
+                if (this.socket) {
+                    this.socket.close();
+                    this.socket = null;
+                }
+                this.connected = false;
+            },
+            schedule_reconnect() {
+
+                if (this.reconnect_timer) return;
+
+                this.reconnect_attempts += 1;
+
+                const delay = Math.min(
+                    1000 * Math.pow(2, this.reconnect_attempts),
+                    10000
+                );
+
+                console.log(`Reconnecting in ${delay}ms`);
+
+                this.reconnect_timer = setTimeout(() => {
+                    this.reconnect_timer = null;
+                    this.connect();
+                }, delay);
+            },
+            add_event(event) {
+
                 this.events.unshift(event);
                 this.highlight_id = event.id;
-                if(this.events.length >  this.max_events){
+                if (this.events.length > this.max_events) {
                     this.events.pop()
                 }
-                 // remove highlight after 800ms
+                this.schedule_chart_update();
+                // remove highlight after 800ms
                 setTimeout(() => {
                     if (this.highlight_id === event.id) {
                         this.highlight_id = null;
                     }
                 }, 800);
             },
-            format_time(ts){
+            format_time(ts) {
                 const d = new Date(ts);
                 const day = String(d.getDate()).padStart(2, "0");
                 const month = String(d.getMonth() + 1).padStart(2, "0");
@@ -161,20 +249,21 @@
 
                 return `${day}-${month}-${year} ${hours}:${minutes} ${ampm}`;
             },
-            get total_events(){
+
+            get total_events() {
                 return this.events.length;
             },
-            get success_count(){
+            get success_count() {
                 return this.events.filter(e => e.status === "success").length;
             },
-            get error_count(){
+            get error_count() {
                 return this.events.filter(e => e.status !== "success").length;
             },
-            get success_rate(){
+            get success_rate() {
                 if (this.total_events === 0) return 0;
                 return Math.round((this.success_count / this.total_events) * 100);
             },
-            get error_rate(){
+            get error_rate() {
                 if (this.total_events === 0) return 0;
                 return Math.round((this.error_count / this.total_events) * 100);
             },
@@ -186,7 +275,82 @@
                     return new Date(e.timestamp).getTime() >= one_minute_ago;
                 }).length;
             },
-            
+            init_chart() {
+
+                if (events_chart) return;
+
+                const ctx = document.getElementById("events_chart");
+                if (!ctx) return;
+
+                var chart_config = {
+                    type: "line",
+                    data: {
+                        labels: [],
+                        datasets: [
+                            {
+                                label: "Events / Minute",
+                                data: [],
+                                borderWidth: 2,
+                                tension: 0.3,
+                            },
+                        ],
+                    },
+                    options: {
+                        responsive: true,
+                        animation: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    precision: 0,
+                                },
+                            },
+                        },
+                    },
+                }
+
+
+                events_chart = new Chart(ctx, chart_config)
+            },
+            get_events_per_minute_buckets() {
+                const buckets = {};
+
+                this.events.forEach(e => {
+                    const d = new Date(e.timestamp);
+                    d.setSeconds(0, 0); // floor to minute
+                    const key = d.toISOString();
+
+                    buckets[key] = (buckets[key] || 0) + 1;
+                });
+
+                return buckets;
+            },
+            schedule_chart_update() {
+                if (!events_chart || this.chart_update_scheduled) return;
+
+                this.chart_update_scheduled = true;
+
+                requestAnimationFrame(() => {
+                    this.chart_update_scheduled = false;
+                    this.update_chart_now();
+                });
+            },
+            update_chart_now() {
+                if (!events_chart) return;
+                const buckets = this.get_events_per_minute_buckets();
+                const labels = Object.keys(buckets).sort();
+                const values = labels.map(k => buckets[k]);
+                // Limit to last 10 minutes
+                const slicedLabels = labels.slice(-10);
+                const slicedValues = values.slice(-10);
+
+                events_chart.data.labels = slicedLabels.map(l =>
+                    new Date(l).toLocaleTimeString()
+                );
+                events_chart.data.datasets[0].data = slicedValues;
+                events_chart.update();
+            }
+
         }
     }
 

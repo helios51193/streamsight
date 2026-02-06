@@ -47,7 +47,8 @@ def main(times):
     print("Starting event simulator...")
     print("Sending events to:", INGEST_URL)
     
-    for _ in range(times):
+    for index in range(times):
+        print(f"Event No. {index}")
         event = generate_event()
 
         try:
