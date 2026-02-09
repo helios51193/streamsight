@@ -61,8 +61,8 @@ def main(times):
         except Exception as e:
             print("Error sending event:", e)
 
-        time.sleep(random.uniform(0.05, 0.2))  # adjust rate here
+        time.sleep(random.uniform(0.02, 0.2))  # adjust rate here
 
 
 if __name__ == "__main__":
-    main(50)
+    main(20)

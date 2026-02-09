@@ -5,7 +5,7 @@
 
 {% block content %}
 {% include 'dashboard/dashboard_navbar.jinja' %}
-<div x-data="event_stream()" x-init="init()">
+<div x-data="event_stream()" x-init="init()" x-effect="save_prefernces();">
     <div x-show="!connected" x-transition class="alert alert-warning mb-4">
         <span>
             <template x-if="reconnect_attempts === 0">
@@ -20,10 +20,10 @@
             </template>
         </span>
     </div>
-    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-8 gap-2">
 
         <!-- LEFT: Metrics + Charts -->
-        <div class="lg:col-span-2 space-y-6">
+        <div class="lg:col-span-3 space-y-6">
             <!-- metric cards -->
             <div class="grid grid-cols-2 gap-4">
 
@@ -70,7 +70,31 @@
         </div>
 
         <!-- RIGHT: Event stream -->
-        <div class="lg:col-span-3">
+        <div class="lg:col-span-5">
+            <h2 class="font-medium ml-3 mb-2">Filters</h2>
+            <div class="flex flex-wrap gap-2 items-center ml-3 mb-2">
+                <select class="select select-sm select-bordered" x-model="filters.event_type">
+                    <option value="all">All event types</option>
+                    <option value="user_login">User login</option>
+                    <option value="user_logout">User logout</option>
+                    <option value="file_upload">File upload</option>
+                    <option value="file_download">File download</option>
+                    <option value="payment_success">Payment success</option>
+                    <option value="payment_failed">Payment failed</option>
+                </select>
+                <select class="select select-sm select-bordered" x-model="filters.status">
+                    <option value="all">All statuses</option>
+                    <option value="success">Success</option>
+                    <option value="error">Error</option>
+                </select>
+                <select class="select select-sm select-bordered" x-model.number="time_window_minutes">
+                    <option :value="5">Last 5 minutes</option>
+                    <option :value="10">Last 10 minutes</option>
+                    <option :value="15">Last 15 minutes</option>
+                    <option :value="30">Last 30 minutes</option>
+                    <option :value="60">Last 1 hour</option>
+                </select>
+            </div>
             <!-- live events table -->
             <div class="card bg-base-100 shadow h-full">
                 <div class="card-body p-4">
@@ -105,8 +129,15 @@
                                         </td>
                                     </tr>
                                 </template>
+                                <template x-if="events.length > 0 && filtered_events === 0">
+                                    <tr>
+                                        <td colspan="5" class="text-center text-sm text-base-content/50">
+                                            No events match current filters
+                                        </td>
+                                    </tr>
+                                </template>
                                 <!-- Event rows -->
-                                <template x-for="event in events" :key="event.id">
+                                <template x-for="event in filtered_events" :key="event.id">
                                     <tr x-transition.opacity class="transition-colors duration-700"
                                         :class="highlight_id === event.id ? 'bg-warning/10' : ''">
                                         <td x-text="format_time(event.timestamp)"></td>
@@ -147,8 +178,29 @@
             reconnect_timer: null,
             chart_update_scheduled: false,
             chart_data: {},
+            filters:{
+                event_type:"all",
+                status:"all"
+            },
+            chart_trigger:0,
+            time_window_minutes:10,
             async init() {
+                this.load_preferences();
                 await this.load_initial_events();
+
+                // 👇 WATCH FILTERS
+                this.$watch("filters.event_type", () => {
+                    this.schedule_chart_update();
+                });
+
+                this.$watch("filters.status", () => {
+                    this.schedule_chart_update();
+                });
+
+                this.$watch("time_window_minutes", () => {
+                    this.schedule_chart_update();
+                });
+
 
                 this.init_chart();
                 this.schedule_chart_update();
@@ -254,10 +306,10 @@
                 return this.events.length;
             },
             get success_count() {
-                return this.events.filter(e => e.status === "success").length;
+                return this.filtered_events.filter(e => e.status === "success").length;
             },
             get error_count() {
-                return this.events.filter(e => e.status !== "success").length;
+                return this.filtered_events.filter(e => e.status !== "success").length;
             },
             get success_rate() {
                 if (this.total_events === 0) return 0;
@@ -275,6 +327,9 @@
                     return new Date(e.timestamp).getTime() >= one_minute_ago;
                 }).length;
             },
+            get event_types(){
+                return [...new Set(this.events.map(e=> e.event_type))];
+            },
             init_chart() {
 
                 if (events_chart) return;
@@ -288,16 +343,28 @@
                         labels: [],
                         datasets: [
                             {
-                                label: "Events / Minute",
+                                label: "Success / Minute",
                                 data: [],
                                 borderWidth: 2,
                                 tension: 0.3,
+                                borderColor:"#22c55e"
+                            },
+                            {
+                            label: "Error / Minute",
+                            data: [],
+                            borderWidth: 2,
+                            tension: 0.3,
+                            borderColor: "#ef4444", // tailwind red-500
                             },
                         ],
                     },
                     options: {
                         responsive: true,
                         animation: false,
+                        plugins: {
+                            legend: { position: "bottom" },
+                        },
+                        borderDash: [5, 5],
                         scales: {
                             y: {
                                 beginAtZero: true,
@@ -306,6 +373,7 @@
                                 },
                             },
                         },
+                        
                     },
                 }
 
@@ -315,17 +383,24 @@
             get_events_per_minute_buckets() {
                 const buckets = {};
 
-                this.events.forEach(e => {
+                this.filtered_events.forEach(e => {
                     const d = new Date(e.timestamp);
                     d.setSeconds(0, 0); // floor to minute
                     const key = d.toISOString();
-
-                    buckets[key] = (buckets[key] || 0) + 1;
+                    if (!buckets[key]) {
+                        buckets[key] = { success: 0, error: 0 };
+                    }
+                    if (e.status === "success") {
+                        buckets[key].success += 1;
+                    } else {
+                        buckets[key].error += 1;
+                    }
                 });
-
+                console.log(buckets)
                 return buckets;
             },
             schedule_chart_update() {
+                console.log("chart_update called")
                 if (!events_chart || this.chart_update_scheduled) return;
 
                 this.chart_update_scheduled = true;
@@ -339,16 +414,70 @@
                 if (!events_chart) return;
                 const buckets = this.get_events_per_minute_buckets();
                 const labels = Object.keys(buckets).sort();
-                const values = labels.map(k => buckets[k]);
+                const maxPoints = this.time_window_minutes;
+                const slicedLabels = labels.slice(-maxPoints);
+                const successValues = slicedLabels.map(
+                    k => buckets[k].success
+                );
+                const errorValues = slicedLabels.map(
+                    k => buckets[k].error
+                );
                 // Limit to last 10 minutes
-                const slicedLabels = labels.slice(-10);
-                const slicedValues = values.slice(-10);
+                
 
                 events_chart.data.labels = slicedLabels.map(l =>
                     new Date(l).toLocaleTimeString()
                 );
-                events_chart.data.datasets[0].data = slicedValues;
+                events_chart.data.datasets[0].data = successValues;
+                events_chart.data.datasets[1].data = errorValues;
                 events_chart.update();
+            },
+            get windowed_events(){
+                const now = Date.now();
+                const cutoff = now - this.time_window_minutes * 60_000;
+                
+                return this.events.filter(e => {
+                    return new Date(e.timestamp).getTime() >= cutoff;
+                });
+
+            },
+            
+            get filtered_events(){
+                return this.windowed_events.filter(e =>{
+                    if (this.filters.event_type !== "all" && e.event_type !== this.filters.event_type){
+                        return false;
+                    }
+                    if (this.filters.status !== "all" && e.status !== this.filters.status){
+                        return false;
+                    }
+                    return true;
+                })
+            },
+            load_preferences(){
+                const saved = localStorage.getItem("dashboard_preferences")
+                if (!saved) return;
+                try {
+                    const prefs = JSON.parse(saved);
+                    if (prefs.filters){
+                        this.filters = {...this.filters,...prefs.filters};
+                    }
+                    if(prefs.time_window_minutes){
+                        this.time_window_minutes = prefs.time_window_minutes;
+                    }
+                    if(typeof prefs.paused == "boolean"){
+                        this.paused = prefs.paused;
+                    }
+                }catch(e){
+                    console.log(e);
+                    console.warn("Failed to load dashboard preferences");
+                }
+            },
+            save_prefernces(){
+                localStorage.setItem("dashboard_preferences", JSON.stringify({
+                    filters:this.filters,
+                    time_window_minutes:this.time_window_minutes,
+                    paused:this.paused
+                }));
             }
 
         }
