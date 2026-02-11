@@ -3,7 +3,7 @@ import random
 import requests
 from datetime import datetime, timezone
 
-INGEST_URL = "http://localhost:8000/api/events/ingest"  # adjust if needed
+INGEST_URL = "http://localhost:8002/api/events/ingest"  # adjust if needed
 
 EVENT_TYPES = [
     "user_login",
@@ -61,8 +61,8 @@ def main(times):
         except Exception as e:
             print("Error sending event:", e)
 
-        time.sleep(random.uniform(0.02, 0.2))  # adjust rate here
+        time.sleep(random.uniform(0.01, 10))  # adjust rate here
 
 
 if __name__ == "__main__":
-    main(20)
+    main(100)
