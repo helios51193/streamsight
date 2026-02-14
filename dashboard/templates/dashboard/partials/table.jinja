@@ -1,0 +1,38 @@
+<div class="card bg-base-100 shadow">
+    <div class="card-body p-4 overflow-x-auto">
+        <h2 class="card-title">Live Events</h2>
+        <table class="table table-sm w-full">
+
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Duration</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <template x-for="event in $store.dashboard.filteredEvents" :key="event.id">
+                    <tr
+                        class="cursor-pointer hover:bg-base-300 transition"
+                        @click="$store.dashboard.openEvent(event)"
+                    >
+                        <td x-text="$store.dashboard.formatTime(event.timestamp)"></td>
+                        <td x-text="event.event_type"></td>
+                        <td>
+                            <span class="badge"
+                                  :class="event.status === 'success'
+                                          ? 'badge-success'
+                                          : 'badge-error'"
+                                  x-text="event.status"></span>
+                        </td>
+                        <td x-text="event.duration_ms + ' ms'"></td>
+                    </tr>
+                </template>
+            </tbody>
+
+        </table>
+
+    </div>
+</div>

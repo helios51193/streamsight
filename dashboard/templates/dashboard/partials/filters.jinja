@@ -1,0 +1,56 @@
+<div class="flex flex-wrap gap-2 items-center">
+
+    <select class="select select-sm select-bordered"
+            x-model="$store.dashboard.filters.eventType">
+        <option value="all">All Types</option>
+        <option value="user_login">User login</option>
+        <option value="user_logout">User logout</option>
+        <option value="file_upload">File upload</option>
+        <option value="file_download">File download</option>
+        <option value="payment_success">Payment success</option>
+        <option value="payment_failed">Payment failed</option>
+</select>
+
+    <select class="select select-sm select-bordered"
+            x-model="$store.dashboard.filters.status">
+        <option value="all">All Status</option>
+        <option value="success">Success</option>
+        <option value="error">Error</option>
+    </select>
+
+    <select class="select select-sm select-bordered"
+            x-model.number="$store.dashboard.timeWindowMinutes">
+        <option :value="5">5m</option>
+        <option :value="10">10m</option>
+        <option :value="15">15m</option>
+        <option :value="30">30m</option>
+        <option :value="60">1hr</option>
+        <option :value="120">2hr</option>
+    </select>
+
+    <div class="relative w-64">
+        <input
+            type="text"
+            placeholder="Search..."
+            class="input input-sm input-bordered w-full pr-8"
+            x-model="$store.dashboard.searchQuery"
+            x-ref="searchQuery"
+            @input="$store.dashboard.handleSearchInput()"
+        />
+
+        <button
+            x-show="$store.dashboard.searchQuery.length > 0"
+            @click="$store.dashboard.clearSearch()"
+            type="button"
+            class="absolute right-2 top-1/2 -translate-y-1/2 text-base-content/50"
+        >
+            ✕
+        </button>
+    </div>
+
+    <button class="btn btn-sm btn-outline"
+            @click="$store.dashboard.exportCSV()">
+        Export CSV
+    </button>
+
+</div>

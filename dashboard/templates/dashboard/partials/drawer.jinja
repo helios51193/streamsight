@@ -1,0 +1,76 @@
+<!-- Overlay -->
+<div x-show="$store.dashboard.drawerOpen" x-transition.opacity class="fixed inset-0 bg-black/30 z-40"
+    @click="$store.dashboard.closeDrawer()">
+</div>
+
+<!-- Drawer -->
+<div x-show="$store.dashboard.drawerOpen" x-transition:enter="transition ease-out duration-300"
+    x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
+    x-transition:leave="transition ease-in duration-200" x-transition:leave-start="translate-x-0"
+    x-transition:leave-end="translate-x-full"
+    class="fixed right-0 top-0 h-full w-[420px] bg-base-100 shadow-xl z-50 flex flex-col">
+
+
+
+    <!-- CONTENT (scrollable) -->
+    <div class="flex-1 overflow-y-auto p-4 space-y-6 text-sm">
+        <!-- HEADER (fixed height) -->
+        <div class="flex items-center justify-between p-4 border-b bg-base-100">
+            <h2 class="text-lg font-semibold">Event Details</h2>
+            <button class="btn btn-sm btn-ghost" @click="$store.dashboard.closeDrawer()">
+                ✕
+            </button>
+        </div>
+
+        <template x-if="$store.dashboard.selectedEvent">
+
+            <div class="space-y-6">
+
+                <!-- Status + Duration -->
+                <div class="flex items-center gap-3">
+                    <span class="badge" :class="$store.dashboard.selectedEvent.status === 'success'
+                    ? 'badge-success'
+                    : 'badge-error'" x-text="$store.dashboard.selectedEvent.status">
+                    </span>
+
+                    <span class="badge badge-outline">
+                        <span x-text="$store.dashboard.selectedEvent.duration_ms"></span> ms
+                    </span>
+                </div>
+
+                <!-- Info -->
+                <div class="space-y-3">
+
+                    <div>
+                        <p class="text-xs text-base-content/60">Event Type</p>
+                        <p class="font-medium" x-text="$store.dashboard.selectedEvent.event_type">
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="text-xs text-base-content/60">Source</p>
+                        <p x-text="$store.dashboard.selectedEvent.source || '—'"></p>
+                    </div>
+
+                    <div>
+                        <p class="text-xs text-base-content/60">Timestamp</p>
+                        <p x-text="new Date($store.dashboard.selectedEvent.timestamp)
+                      .toLocaleString()">
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="text-xs text-base-content/60">Event ID</p>
+                        <p class="font-mono text-xs break-all" x-text="$store.dashboard.selectedEvent.id">
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </template>
+
+    </div>
+
+</div>

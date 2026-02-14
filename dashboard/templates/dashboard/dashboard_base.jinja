@@ -6,21 +6,23 @@
     <title>{% block title %}My Site{% endblock %}</title>
     <!-- Tailwind CSS -->
     <link rel="stylesheet" href="{{ static('css/dist/styles.css') }}" />
-    {% block extra_css %}{% endblock %}
-  </head>
-  <body>
-    {% block content %}
-    {% endblock %}
-
     <!-- HTMX -->
     <script src="{{ static('js/htmx.min.js') }}"></script>
 
     <!-- chart.js -->
     <script src="{{ static('js/chart.umd.min.js') }}" defer></script>
 
-
     <!-- Alpine.js -->
     <script src="{{ static('js/alpine.min.js') }}" defer></script>
+
+    {% block extra_css %}{% endblock %}
+  </head>
+  <body>
+    
+    {% block content %}
+    {% endblock %}
+
+    
     
     {% block extra_js %}{% endblock %}
 

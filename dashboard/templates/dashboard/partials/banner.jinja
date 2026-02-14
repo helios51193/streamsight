@@ -1,0 +1,7 @@
+<div x-data>
+  <div x-show="$store.dashboard && !$store.dashboard.connected" x-transition class="alert alert-warning rounded-none">
+    <span
+      x-text="$store.dashboard.connectionMessage"
+    ></span>
+  </div>
+</div>
