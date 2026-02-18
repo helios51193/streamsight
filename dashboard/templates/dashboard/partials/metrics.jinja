@@ -4,7 +4,7 @@
     <div class="card bg-base-100 shadow">
         <div class="card-body p-4">
             <p class="text-xs text-base-content/70">Total Events</p>
-            <h2 class="text-xl font-semibold" x-text="$store.dashboard.totalEvents"></h2>
+            <h2 class="text-xl font-semibold" x-text="$store.dashboard.serverMetrics?.total ?? 0"></h2>
         </div>
     </div>
 
@@ -12,7 +12,7 @@
     <div class="card bg-base-100 shadow">
         <div class="card-body p-4">
             <p class="text-xs text-base-content/70">Events / Min</p>
-            <h2 class="text-xl font-semibold" x-text="$store.dashboard.eventsPerMinute"></h2>
+            <h2 class="text-xl font-semibold" x-text="$store.dashboard.serverMetrics?.events_per_minute ?? 0"></h2>
         </div>
     </div>
 
@@ -20,7 +20,7 @@
     <div class="card bg-base-100 shadow">
         <div class="card-body p-4">
             <p class="text-xs text-base-content/70">Success Rate</p>
-            <h2 class="text-xl font-semibold text-success" x-text="$store.dashboard.successRate + '%'"></h2>
+            <h2 class="text-xl font-semibold text-success" x-text="($store.serverMetrics?.success_rate ?? 0) + '%'"></h2>
         </div>
     </div>
 
@@ -28,7 +28,7 @@
     <div class="card bg-base-100 shadow">
         <div class="card-body p-4">
             <p class="text-xs text-base-content/70">Error Rate</p>
-            <h2 class="text-xl font-semibold text-error" x-text="$store.dashboard.errorRate + '%'"></h2>
+            <h2 class="text-xl font-semibold text-error" x-text="($store.serverMetrics?.error_rate ?? 0) + '%'"></h2>
         </div>
     </div>
 
@@ -36,7 +36,7 @@
     <div class="card bg-base-100 shadow">
         <div class="card-body p-4">
             <p class="text-xs text-base-content/70">Avg Duration</p>
-            <h2 class="text-xl font-semibold" x-text="$store.dashboard.averageDuration + ' ms'"></h2>
+            <h2 class="text-xl font-semibold" x-text="($store.dashboard.serverMetrics?.avg_duration ?? 0) + ' ms'"></h2>
         </div>
     </div>
 
@@ -44,16 +44,7 @@
     <div class="card bg-base-100 shadow">
         <div class="card-body p-4">
             <p class="text-xs text-base-content/70">P95 Duration</p>
-            <h2 class="text-xl font-semibold" x-text="$store.dashboard.p95Duration + ' ms'"></h2>
+            <h2 class="text-xl font-semibold" x-text="($store.dashboard.serverMetrics?.p95_duration ?? 0) + ' ms'"></h2>
         </div>
     </div>
-
-    <!-- Events Per Second -->
-    <div class="card bg-base-100 shadow col-span-2">
-        <div class="card-body p-4">
-            <p class="text-xs text-base-content/70">Events / Sec</p>
-            <h2 class="text-xl font-semibold text-primary" x-text="$store.dashboard.eventsPerSecond"></h2>
-        </div>
-    </div>
-
 </div>

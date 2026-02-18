@@ -7,6 +7,7 @@
 <!-- Actual Code -->
 <script src="{{static('dashboard/dashboard.js')}}"></script>
 <div x-data data-events-url="{{ url('dashboard:dashboard_initial_events') }}"
+            data-metrics-url="{{ url('dashboard:dashboard_metric_summary') }}"
     class="min-h-screen bg-base-200"
     @keydown.window="
         if ($event.key === '/') {

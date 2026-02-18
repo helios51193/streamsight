@@ -32,17 +32,19 @@ document.addEventListener('alpine:init', () => {
 
         async init() {
             this.loadPreferences();
-            const root = document.querySelector("[data-events-url]");
+            const root_event = document.querySelector("[data-events-url]");
 
-            this.eventsUrl = root.dataset.eventsUrl;
+            this.eventsUrl = root_event.dataset.eventsUrl;
+            
+            const root_metric = document.querySelector("[data-metrics-url]");
+            this.metricsUrl = root_metric.dataset.metricsUrl;
 
-            await this.loadInitialEvents();
-
+            await this.fetchMetrics();
             this.connect();
         },
         // -----------------------------
         // INITIAL LOAD
-        // -----------------------------
+        // ----------------------------
         async loadInitialEvents() {
             try {
                 const response = await fetch(this.eventsUrl);
@@ -50,6 +52,21 @@ document.addEventListener('alpine:init', () => {
                 this.events = data;
             } catch (err) {
                 console.error("Failed to load initial events", err);
+            }
+        },
+        async fetchMetrics() {
+            console.log(this.metricsUrl);
+        if (!this.metricsUrl) return;
+
+            try {
+                const response = await fetch(
+                `${this.metricsUrl}?window=${this.timeWindowMinutes}`
+                );
+                console.log(response)
+
+                this.serverMetrics = await response.json();
+            } catch (err) {
+                console.error("Failed to fetch metrics", err);
             }
         },
         // -----------------------------
@@ -75,6 +92,10 @@ document.addEventListener('alpine:init', () => {
                 if (this.paused) return;
 
                 const data = JSON.parse(event.data);
+                if (data.type === "metrics_update") {
+                    this.serverMetrics = data;
+                    return;
+                }
                 this.events.push(data);
             };
 
@@ -296,7 +317,6 @@ document.addEventListener('alpine:init', () => {
                     this.filters = { ...this.filters, ...prefs.filters };
                 }
                 if (prefs.timeWindowMinutes) {
-                    console.log("b");
                     this.timeWindowMinutes = Number(prefs.timeWindowMinutes);
                 }
                 if (prefs.searchQuery) {
