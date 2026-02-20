@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
 from events.models import Events
-from django.db.models import Count, Avg
+from django.db.models import Avg
 import numpy as np
 @login_required
 def dashboard_index(request):

@@ -1581,9 +1581,6 @@
   .z-50 {
     z-index: 50;
   }
-  .col-span-2 {
-    grid-column: span 2 / span 2;
-  }
   .container {
     width: 100%;
   }
@@ -2199,9 +2196,6 @@
   }
   .text-error {
     color: var(--color-error);
-  }
-  .text-primary {
-    color: var(--color-primary);
   }
   .text-success {
     color: var(--color-success);

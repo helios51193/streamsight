@@ -33,12 +33,11 @@ document.addEventListener('alpine:init', () => {
         async init() {
             this.loadPreferences();
             const root_event = document.querySelector("[data-events-url]");
-
-            this.eventsUrl = root_event.dataset.eventsUrl;
             
+            this.eventsUrl = root_event.dataset.eventsUrl;
             const root_metric = document.querySelector("[data-metrics-url]");
             this.metricsUrl = root_metric.dataset.metricsUrl;
-
+            await this.loadInitialEvents();
             await this.fetchMetrics();
             this.connect();
         },
@@ -55,8 +54,7 @@ document.addEventListener('alpine:init', () => {
             }
         },
         async fetchMetrics() {
-            console.log(this.metricsUrl);
-        if (!this.metricsUrl) return;
+            if (!this.metricsUrl) return;
 
             try {
                 const response = await fetch(

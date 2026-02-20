@@ -59,8 +59,5 @@ class EventConsumer(AsyncWebsocketConsumer):
         # Send raw event
         await self.send(text_data=json.dumps(event["data"]))
 
-        # Compute metrics
-        metrics = await self.compute_metrics_sync(10)
-
-        # Send metrics update
-        await self.send(text_data=json.dumps(metrics))
+    async def metrics_message(self, event):
+        await self.send(text_data=json.dumps(event["data"]))
