@@ -18,7 +18,6 @@ def compute_metrics_from_buckets(window_minutes=10):
         
         bucket_key = f"metrics:{bucket}"
         duration_key = f"{bucket_key}:durations"
-        print(f"Looking for bucket:{bucket_key} : {duration_key}")
         data = redis_client.hgetall(bucket_key)
         if not data:
             continue

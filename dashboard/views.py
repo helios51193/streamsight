@@ -5,10 +5,15 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from events.models import Events
 from django.db.models import Avg
+from django.conf import settings
 import numpy as np
 @login_required
 def dashboard_index(request):
-    return render(request, "dashboard/index.jinja")
+    context = {
+      "socket_base_url":settings.SOCKET_BASE
+    }
+    print(context)
+    return render(request, "dashboard/index.jinja", context=context)
 
 @login_required
 def initial_events(request):

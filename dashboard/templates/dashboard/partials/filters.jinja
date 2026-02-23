@@ -19,7 +19,7 @@
     </select>
 
     <select class="select select-sm select-bordered"
-            x-model.number="$store.dashboard.timeWindowMinutes">
+            x-model.number="$store.dashboard.timeWindowMinutes" @change="$store.dashboard.updateWindow()">
         <option value="5">5m</option>
         <option value="10">10m</option>
         <option value="15">15m</option>

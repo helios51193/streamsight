@@ -1,5 +1,6 @@
 env
 .env
+.env.server
 theme/static_src/node_modules
 *.pyc
 *.sqlite3

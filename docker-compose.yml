@@ -1,0 +1,16 @@
+services:
+  web:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    env_file:
+      - .env.server
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"

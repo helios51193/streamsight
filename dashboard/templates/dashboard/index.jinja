@@ -8,6 +8,7 @@
 <script src="{{static('dashboard/dashboard.js')}}"></script>
 <div x-data data-events-url="{{ url('dashboard:dashboard_initial_events') }}"
             data-metrics-url="{{ url('dashboard:dashboard_metric_summary') }}"
+            data-socket-base-url = "{{socket_base_url}}"
     class="min-h-screen bg-base-200"
     @keydown.window="
         if ($event.key === '/') {

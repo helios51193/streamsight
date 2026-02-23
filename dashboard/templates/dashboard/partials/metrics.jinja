@@ -20,7 +20,7 @@
     <div class="card bg-base-100 shadow">
         <div class="card-body p-4">
             <p class="text-xs text-base-content/70">Success Rate</p>
-            <h2 class="text-xl font-semibold text-success" x-text="($store.serverMetrics?.success_rate ?? 0) + '%'"></h2>
+            <h2 class="text-xl font-semibold text-success" x-text="($store.dashboard.serverMetrics?.success_rate ?? 0) + '%'"></h2>
         </div>
     </div>
 
@@ -28,7 +28,7 @@
     <div class="card bg-base-100 shadow">
         <div class="card-body p-4">
             <p class="text-xs text-base-content/70">Error Rate</p>
-            <h2 class="text-xl font-semibold text-error" x-text="($store.serverMetrics?.error_rate ?? 0) + '%'"></h2>
+            <h2 class="text-xl font-semibold text-error" x-text="($store.dashboard.serverMetrics?.error_rate ?? 0) + '%'"></h2>
         </div>
     </div>
 

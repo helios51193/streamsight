@@ -8,6 +8,7 @@ document.addEventListener('alpine:init', () => {
         // -----------------------------
 
         events: [],
+        socketBase:null,
         socket: null,
         connected: false,
         reconnectAttempts: 0,
@@ -74,7 +75,6 @@ document.addEventListener('alpine:init', () => {
         connect() {
             console.log("Trying to connect")
             if (this.socket) return;
-
             const protocol = window.location.protocol === "https:" ? "wss" : "ws";
             const url = `${protocol}://${window.location.host}/ws/events/`;
 
@@ -85,7 +85,7 @@ document.addEventListener('alpine:init', () => {
                 this.reconnectAttempts = 0;
                 console.log("WebSocket connected");
             };
-
+            
             this.socket.onmessage = (event) => {
                 if (this.paused) return;
 
@@ -107,6 +107,22 @@ document.addEventListener('alpine:init', () => {
             this.socket.onerror = () => {
                 this.socket.close();
             };
+        },
+        updateWindow(){
+            console.log("calling update window");
+            if(!this.socket) return;        
+            console.log("socket present");
+            try{
+                this.socket.send(JSON.stringify({
+                    type:"update_window",
+                    window: this.timeWindowMinutes
+                }));
+            }catch(e){
+                console.log(e);
+            }
+                
+            
+
         },
         get connectionMessage() {
             if (this.connected) return "";

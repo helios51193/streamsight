@@ -76,10 +76,7 @@ def ingest_event(request):
     # Execute everything
     pipe.execute()
 
-    metrics = compute_metrics_from_buckets(10)
     channel_layer = get_channel_layer()
-
-
     # Publish to Redis
     async_to_sync(channel_layer.group_send)(
         "events_stream",
@@ -96,14 +93,6 @@ def ingest_event(request):
             },
         },
     )
-    async_to_sync(channel_layer.group_send)(
-        "events_stream",
-        {
-            "type": "metrics.message",
-            "data": metrics
-        }
-    )
-
     return JsonResponse(
         {
             "success": True,

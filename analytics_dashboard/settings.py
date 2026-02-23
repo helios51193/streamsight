@@ -127,7 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+SOCKET_BASE = "web" if os.getenv('ENVIRONMENT','server') else "localhost"
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
@@ -153,8 +153,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
-
-STATIC_ROOT = None
+print(BASE_DIR)
+STATIC_ROOT = BASE_DIR / "static"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -173,13 +173,16 @@ os.makedirs(LOG_DIR, exist_ok=True)
 REDIS_HOST= os.getenv("REDIS_HOST","localhost")
 REDIS_PORT = os.getenv("REDIS_PORT", "6379")
 
+print(REDIS_HOST)
+print(REDIS_PORT)
+
 # CHANNELS
 ASGI_APPLICATION = "analytics_dashboard.asgi.application"
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("localhost", 6379)],  # or ("redis", 6379)
+            "hosts": [(os.getenv("REDIS_HOST","localhost"), 6379)],  # or ("redis", 6379)
         },
     },
 }
