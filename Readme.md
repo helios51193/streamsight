@@ -13,9 +13,9 @@ A realtime event ingestion and analytics system built with:
 
 ## 📸 Screenshots
 
-![Document List](screenshots/Screenshot_1.png)
+![Document List](screenshots/screenshot_1.png)
 
-![Document List](screenshots/Screenshot_2.png)
+![Document List](screenshots/screenshot_2.png)
 
 ------------------------------------------------------------------------
 
