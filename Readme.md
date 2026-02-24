@@ -1,4 +1,4 @@
-# 📊 Realtime Event Analytics Dashboard
+# 📊 Stream Sight
 
 A realtime event ingestion and analytics system built with:
 
