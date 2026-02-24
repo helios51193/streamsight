@@ -94,7 +94,10 @@ document.addEventListener('alpine:init', () => {
                     this.serverMetrics = data;
                     return;
                 }
-                this.events.push(data);
+                this.events.unshift(data);
+                if (this.events.length > 200){
+                    this.events.pop()
+                }
             };
 
             this.socket.onclose = () => {

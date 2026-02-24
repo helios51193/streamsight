@@ -6,33 +6,42 @@
 {% block content %}
 <!-- Actual Code -->
 <script src="{{static('dashboard/dashboard.js')}}"></script>
-<div x-data data-events-url="{{ url('dashboard:dashboard_initial_events') }}"
+<div class="h-screen overflow-hidden flex flex-col">
+    <div class="flex-1 grid grid-cols-1 gap-4 overflow-hidden">
+        <div x-data data-events-url="{{ url('dashboard:dashboard_initial_events') }}"
             data-metrics-url="{{ url('dashboard:dashboard_metric_summary') }}"
-            data-socket-base-url = "{{socket_base_url}}"
-    class="min-h-screen bg-base-200"
-    @keydown.window="
+            data-socket-base-url="{{socket_base_url}}" class="min-h-screen bg-base-200" @keydown.window="
         if ($event.key === '/') {
             $event.preventDefault();
             $refs.searchQuery.focus();
         }
     ">
-    {% include "dashboard/partials/navbar.jinja" %}
-    {% include "dashboard/partials/banner.jinja" %}
-    <div class="p-6 space-y-6">
-        {% include "dashboard/partials/filters.jinja" %}
+            {% include "dashboard/partials/navbar.jinja" %}
+            {% include "dashboard/partials/banner.jinja" %}
+            <div class="p-6 space-y-6">
+                {% include "dashboard/partials/filters.jinja" %}
 
-        <div class="grid grid-cols-1 lg:grid-cols-8 gap-2">
-            <div class="lg:col-span-3 space-y-6">
-                {% include "dashboard/partials/metrics.jinja" %}
-                {% include "dashboard/partials/chart.jinja" %}
+                <div class="grid grid-cols-1 lg:grid-cols-8 gap-2 overflow-hidden ">
+                    <div class="lg:col-span-3 space-y-6">
+                        <div class="flex flex-col bg-base-100 rounded-xl shadow overflow-hidde">
+                            {% include "dashboard/partials/metrics.jinja" %}
+                            {% include "dashboard/partials/chart.jinja" %}
+                        </div>
+
+                    </div>
+                    <div class="lg:col-span-5 flex flex-col bg-base-100 rounded-xl shadow overflow-y-auto">
+                        <div class="flex-1 overflow-y-auto">
+                            {% include "dashboard/partials/table.jinja" %}
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="lg:col-span-5">
-                {% include "dashboard/partials/table.jinja" %}
-            </div>
+            {% include "dashboard/partials/drawer.jinja" %}
         </div>
     </div>
-    {% include "dashboard/partials/drawer.jinja" %}
+
 </div>
+
 
 
 {% endblock %}

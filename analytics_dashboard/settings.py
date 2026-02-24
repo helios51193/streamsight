@@ -153,8 +153,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
-print(BASE_DIR)
-STATIC_ROOT = BASE_DIR / "static"
+# change it to BASE_DIR / "static" for docker
+STATIC_ROOT = None
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -173,8 +173,6 @@ os.makedirs(LOG_DIR, exist_ok=True)
 REDIS_HOST= os.getenv("REDIS_HOST","localhost")
 REDIS_PORT = os.getenv("REDIS_PORT", "6379")
 
-print(REDIS_HOST)
-print(REDIS_PORT)
 
 # CHANNELS
 ASGI_APPLICATION = "analytics_dashboard.asgi.application"
